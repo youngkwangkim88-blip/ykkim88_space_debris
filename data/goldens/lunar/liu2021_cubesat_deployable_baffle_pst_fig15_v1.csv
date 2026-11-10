@@ -1,0 +1,39 @@
+# Point-source transmittance of a CubeSat star tracker (20 deg field, F 1.7453) with an on-orbit deployable three-stage baffle
+# (deployed height about 95.45 mm, Fig. 13; sub-baffle inner diameters 31.11/37.41/44.37 mm, Table 2; inner-wall absorbance set to
+# 95 %), SIMULATION, digitised from Liu et al. 2021 Remote Sens. 13:2503 Fig. 15, series 'Deployable baffle' (linear axis, 28-90 deg
+# at 2 deg; the 90 deg sample is indistinguishable from zero and dropped); PST definition as printed (Eq. 39: illuminance on the
+# detector's imaging surface over the illuminance on the input aperture perpendicular to the source); the paper's design sunlight
+# suppression angle is 28 deg; source PDF sha256 afdfab6e67fcf85dcb64bd389bd87bdd25f6c5712a443cb1d8518f8d8c78665b; digitisation trace sha256 15c731c5f62df695013b5e7a1306ab057d9b41e45064188d13caa7cfd47d2db8;
+# derived by work/spectra_provenance/derive_liu2021_pst_table.py from contract/sky/liu2021_fig15_digitisation_trace_v1.csv
+source_angle_deg,pst
+28.0,2.704e-05
+30.0,2.429e-05
+32.0,2.126e-05
+34.0,1.868e-05
+36.0,1.743e-05
+38.0,1.734e-05
+40.0,1.307e-05
+42.0,1.231e-05
+44.0,1.086e-05
+46.0,9.744e-06
+48.0,7.893e-06
+50.0,7.573e-06
+52.0,7.387e-06
+54.0,6.238e-06
+56.0,7.147e-06
+58.0,5.488e-06
+60.0,7.140e-06
+62.0,5.518e-06
+64.0,5.169e-06
+66.0,5.829e-06
+68.0,4.643e-06
+70.0,4.431e-06
+72.0,4.617e-06
+74.0,3.742e-06
+76.0,3.144e-06
+78.0,2.646e-06
+80.0,2.135e-06
+82.0,1.806e-06
+84.0,1.168e-06
+86.0,5.651e-07
+88.0,3.034e-07

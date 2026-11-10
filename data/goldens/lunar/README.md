@@ -1,0 +1,19 @@
+# Lunar stray light at 28.5°
+
+Run `python goldens.py lunar` from the package root. Rates are expected electrons per central native pixel per second. The 28.5° angle is from the boresight to the lunar centre. The lunar phase angle is the Sun–Moon–observer angle.
+
+| Optical configuration | Diffuse sky without lunar light | Added lunar light | Total |
+| --- | ---: | ---: | ---: |
+| Historical CMV E12, 30.9375 arcsec/pixel, independent observer and Moon phases on a February reference ellipse | 4.94689 | 3.42261 | 8.36950 |
+| v27 virtual sCMOS E5, July sightline and synthetic Moon | 2.85846 | 0.44030 | 3.29876 |
+| v27 virtual sCMOS E12, same July geometry | 3.23031 | 0.50909 | 3.73940 |
+
+For the historical case, the GCRS vectors give a lunar phase of 1.55130°. This lies just above the 1.55° lower limit of the fitted ROLO model. The Earth leaves the full visible lunar disk unobscured. A separate geometric check finds a 0.09740° margin outside first penumbral contact. The code uses the archived lunar body angles for the synthetic orbit and recomputes the lunar electron rate. The three diffuse components in the table come from the original calculation at that same pointing. The search varied orbital phases and tested eligible pointings; the replay checks the selected sample. Its epoch identifies the reference ellipse. A physical upper bound over all observing geometries would require a wider search and a calibrated baffle model.
+
+For v27 the comparison keeps the July sightline and diffuse components fixed and moves the Moon to the chosen point on its ellipse. The dated July and August sightlines have zero lunar term under the model's 90° cutoff. Changing the virtual sensor response from E5 to E12 changes the spectral weighting. The historical CMV case also has a larger pixel and a different lunar geometry.
+
+**From the Moon to the pixel.** The public lunar routine uses the ROLO spectrum, the fitted off-axis point-source transmittance (PST) and the conversion to equivalent sky radiance. An independent integral applies PST to lunar irradiance at the detector and folds it with the effective pixel area and quantum efficiency. With Liu's irradiance-ratio definition, the lens transmission in the conversion cancels the same transmission in the camera fold on its transmitting wavelengths. Opaque wavelengths contribute zero. Both routes must yield the archived rate within 0.00005 e⁻/pixel/s; the internal route-to-route comparison uses relative tolerance 1e−10.
+
+**Scope of the references.** At 7° phase the 32 unadjusted reflectance values read from Kieffer & Stone Fig. 8 check the public ROLO implementation under the original 2.5% per-band tolerance. The baffle comparison uses 31 digitized values from Liu et al. Fig. 15, which reports an optical simulation of a deployable baffle. The RMS fit residual divided by the mean plotted PST is 14.87%. The 28° point constrains the limiting value of the fit. The public law refuses pointing angles at or below 28° and returns zero at or above 90°. The telescope's physical stray-light accuracy would require an instrument measurement. [Kieffer & Stone (2005)](https://doi.org/10.1086/430185) · [Liu et al. (2021)](https://doi.org/10.3390/rs13132503).
+
+The three inputs here are exact Git blobs from AI_SBSSA_v2 snapshot `64b2b306c363009f640d1db98f44cb6d72614ea8`, capsule `WI-PHYSICS-OBSERVATION-MODEL`. The geometry and expected historical rates are from `work/tests/data/lunar_stress.json`, the Fig. 8 values from `work/tests/data/rolo311g_ks2005_fig8_vectors_v1.csv`, and the Fig. 15 points from `contract/sky/liu2021_cubesat_deployable_baffle_pst_fig15_v1.csv`. The port follows `work/tests/test_lunar_stress_paper.py`, `test_moon_rolo.py` and `test_moon_stray_light_v2.py`. The July inputs and comparator rates are the existing v27 `data/sightlines.json` and `data/sky_reference.json`. The digitized curve files retain their extraction notes and attribution.

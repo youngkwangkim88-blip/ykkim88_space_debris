@@ -6,6 +6,7 @@ import json
 import gold_blender
 import gold_calibration
 import gold_coadd
+import gold_lunar
 import gold_motion
 import gold_photometry
 import gold_tess
@@ -14,6 +15,7 @@ import gold_tess_paper
 CHECKS = {
     "tess": gold_tess.run,
     "tess_paper": gold_tess_paper.run,
+    "lunar": gold_lunar.run,
     "blender": gold_blender.run,
     "motion": gold_motion.run,
     "calibration": gold_calibration.run,

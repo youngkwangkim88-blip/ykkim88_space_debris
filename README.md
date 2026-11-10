@@ -26,6 +26,7 @@ Run `python goldens.py` for all groups, or append one group name. The default re
 
 | Group | Independent observable and scope |
 | --- | --- |
+| `lunar` | Recompute the selected fully sunlit CMV E12 sample (3.42261 e⁻/pixel/s), check its penumbral clearance and compare with an independent detector-plane integral. Verify the separate v27 virtual sCMOS July lunar increment for E5 and E12 and compare ROLO and the baffle fit with published curves. [Inputs, geometry and scope](data/goldens/lunar/README.md). |
 | `tess` | For 59 historical 21 × 21 cutouts, start from retained measured sky floors and recalculate zodiacal rates at their epochs. Check geometry and interpolation against independent calculations. The two historical model discrepancies remain visible. [Measurements and product links](data/goldens/tess/README.md). |
 | `tess_paper` | Rebuild STScI and ZodiSURF zodiacal rates, diffuse Galactic light and the isotropic term from the selected timestamps, sightlines and TESS band coefficients. The measured sky and unresolved-star rate come from the archived photometry. Compare the resulting 250 windows and all 57 units to the manuscript. [Inputs and aggregation](data/goldens/tess_paper/README.md). |
 | `blender` | Integrate the original linear Cycles pixels for 18 pose/law combinations. Six plate comparisons exercise the public photometry function directly. A separate 36-node exposure checks integration in flux before conversion to magnitude. [Optional rerender and model scope](data/goldens/blender/README.md). |

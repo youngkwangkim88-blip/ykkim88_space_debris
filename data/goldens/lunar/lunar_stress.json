@@ -1,0 +1,56 @@
+{
+  "reference_epoch_utc": "2027-02-21T01:10:16.987673+00:00",
+  "meaning": "Counterfactual winning bright_moon ellipse. Observer and Moon phases vary independently; this epoch identifies the reference ellipse only.",
+  "geometry_source": {
+    "lunar_no_penumbra_envelope.json": "2dd9dc07bd5cdbaa720b2b8c0d8114f358971f1f8e66e955c4b4455669107596",
+    "lunar_free_anomaly_summary.json": "952f87c2d77b173a3ff5213e32d93892d987bf27ff9375eac8ea47167f381713",
+    "selected": "selected.hybrid on bright_moon; GCRS Moon and Sun from the osculating ellipse and reference, and observer from the archived 28.5-degree pointing ring and range."
+  },
+  "observer_gcrs_km": [
+    -5802.051238086366,
+    3372.0984381816234,
+    -1260.3892779849702
+  ],
+  "moon_gcrs_km": [
+    -315745.38703413133,
+    166737.48921958476,
+    65758.49304946647
+  ],
+  "sun_gcrs_km": [
+    130346870.97528684,
+    -64165363.49492004,
+    -27815194.637003846
+  ],
+  "ray_gcrs": [
+    -0.682346831432713,
+    0.3643593155336009,
+    0.6337547560512841
+  ],
+  "libration_deg": {
+    "observer_selenographic_latitude_deg": 0.8583060627059046,
+    "observer_selenographic_longitude_deg": 2.776399405219962,
+    "sun_selenographic_longitude_deg": 4.238178049839519
+  },
+  "coincident_diffuse_e_per_px_s": {
+    "zodiacal_plus_isotropic": 4.877312670473346,
+    "dgl": 0.06333543320709781,
+    "unresolved": 0.006241150702054732
+  },
+  "penumbra_clearance_deg": 0.09740000391832576,
+  "phase_deg": 1.5513001566255127,
+  "moon_e_per_px_s": 3.4226106927649527,
+  "total_e_per_px_s": 8.369499947147451,
+  "plate_scale_arcsec": 30.9375,
+  "aperture_mm": 18.334649444186343,
+  "f_number": 2,
+  "lens_source": {
+    "path": "wi/WI-SYNTH-CAMERA-MODEL/contract/spectra/tourmaline_2_0_35_c_transmittance_digitized.csv",
+    "sha256": "e23ea8a1abfa987c11b31cf62da919d402cea5f3c9bea53cb254f93544662de7",
+    "outside_table": "zero"
+  },
+  "qe_source": {
+    "path": "wi/WI-SYNTH-CAMERA-MODEL/contract/spectra/cmv4000_e12_qe_digitized.csv",
+    "sha256": "2ad545cd3f809549b1aa9b18d3796e2e20a4550cdcf852e835909cd6ae1f42bd",
+    "outside_table": "zero"
+  }
+}
