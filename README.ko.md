@@ -1,10 +1,11 @@
 # A1 파편 광학·하늘 배경 재현 예제
 
-Python 3.10 환경에서 아래 두 명령을 실행한다. 의존성을 설치한 뒤에는 기본 예제에 필요한 관측 영상과 모형 입력이 모두 이 폴더에 있다. [영문 실행 안내](README.md) · [원자료와 이용 조건](SOURCES.md)
+논문 v27 r6의 검토 기준 버전은 [v0.1.0-rc3](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3)이다. Python 3.10 환경에서 아래 명령으로 논문 예제와 골든 테스트를 실행한다. 의존성을 설치한 뒤에는 기본 예제에 필요한 관측 영상과 모형 입력이 모두 이 폴더에 있다. [영문 실행 안내](README.md) · [원자료와 이용 조건](SOURCES.md)
 
 ```sh
 python -m pip install -r requirements.txt
 python reproduce.py
+python goldens.py
 ```
 
 - **파편** — `python fragment.py`는 10 cm 회색판의 초기 자세·회전축 100쌍을 적산한다. 4초 E12에서 조명을 같은 8월 조건으로 유지하면 약한 하늘과 강한 하늘의 SNR 10 거리 중앙값은 각각 306.0 km와 275.5 km다. `python fragment.py --shape cuboid --material solar_cell --band E5 --exposure 0.5`로 형상·재질·대역·노출을 바꿀 수 있다.

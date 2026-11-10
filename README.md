@@ -4,11 +4,14 @@ Reproduce selected results of the A1 v27 r6 manuscript on a CPU. Change a fragme
 
 ## Run the paper examples
 
+The archived calculation version for reviewer reproduction is [v0.1.0-rc3](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3).
+
 With Python 3.10, create a virtual environment, activate it, and run the commands below. Installing the three pinned packages needs a package index or a wheel cache. The examples then run offline with the files in this directory.
 
 ```sh
 python -m pip install -r requirements.txt
 python reproduce.py
+python goldens.py
 ```
 
 | Command | Inputs and expected result |

@@ -2,7 +2,7 @@
 
 The lunar golden includes the authors' selected no-penumbra geometry and numerical readings of the unadjusted lunar spectrum in Kieffer & Stone (2005, Fig. 8) and of the simulated deployable baffle in Liu et al. (2021, Fig. 15). The two curves are comparison data with their original extraction notes. [Lunar input provenance](data/goldens/lunar/README.md).
 
-This is a local release candidate for the calculations in manuscript A1 v27 r6. The scientific source is the paper's retained fragment model, diffuse sky model, calibrated TESS reduction and supplement S8. Inputs below retain their own origins and terms. An author software license and final confirmation of redistribution terms for the digitized manufacturer curves are outstanding before a public release.
+This repository accompanies manuscript A1 v27 r6. The scientific source is the paper's retained fragment model, diffuse sky model, calibrated TESS reduction and supplement S8. The inputs below retain their own origins and terms. The authors have not selected a software license. The manufacturer response curves are attributed below, and their onward redistribution terms remain unconfirmed.
 
 | Input | Origin and preparation |
 | --- | --- |
