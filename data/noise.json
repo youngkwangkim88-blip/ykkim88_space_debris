@@ -1,0 +1,11 @@
+{
+  "weak_streak": {
+    "seed": 9023,
+    "draws": 512,
+    "read_e": 13.0,
+    "sky_rate": 11.598222546681313,
+    "dark_rate": 2.9921217916718232,
+    "exposure_s": 1,
+    "incident_e": 43.58176905581539
+  }
+}

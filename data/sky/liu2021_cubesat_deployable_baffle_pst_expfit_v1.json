@@ -1,0 +1,111 @@
+{
+ "schema": "physics-moon-pst-fit/v1",
+ "law": "PST(t) = A [exp(-k (t - 28)) - exp(-k (90 - 28))] for 28 < t < 90 deg; PST = 0 for t >= 90 deg (exactly 0 at 90 by construction); t <= 28 deg is never evaluated (the scene is refused); t is the angle between the boresight and the source's centre, degrees",
+ "source": {
+  "work": "Liu et al. 2021, Remote Sensing 13, 2503, DOI 10.3390/rs13132503",
+  "bibliography_key": "liu2021deployablebaffle",
+  "figure": "Fig. 15, series 'Deployable baffle': a SIMULATION over 28-90 deg at 2 deg steps on a linear axis",
+  "section": "Section 5.4, PDF page 18: Eq. 39, PST = Eo(theta) / Ei(theta), inner-wall absorbance set to 95 %",
+  "pdf_sha256": "afdfab6e67fcf85dcb64bd389bd87bdd25f6c5712a443cb1d8518f8d8c78665b",
+  "pdf_bytes": 10859497
+ },
+ "points": {
+  "path": "contract/sky/liu2021_cubesat_deployable_baffle_pst_fig15_v1.csv",
+  "sha256": "693bfa542ded7f721d6b5e8df780b429c869900bc77e4028e2eb4723fa41acff",
+  "n": 31,
+  "angles_deg": [
+   28.0,
+   88.0
+  ]
+ },
+ "fit": {
+  "method": "unweighted least squares on linear PST; k by bisection of the analytic profile slope, A linear given k",
+  "a": 2.762005608428846e-05,
+  "k_per_deg": 0.041198759898230033,
+  "e_folding_deg": 24.272575253969276,
+  "lower_deg": 28.0,
+  "upper_deg": 90.0,
+  "zero_at_and_beyond_deg": 90.0,
+  "limit_just_above_lower": 2.5472739279740892e-05,
+  "formal_sigma": {
+   "a": 6.191452548713258e-07,
+   "k_per_deg": 0.0030889186692637746
+  },
+  "formal_sigma_note": "Gauss-Newton covariance scaled by the residual variance; the residuals are systematic, so this is not an uncertainty of the law"
+ },
+ "residuals": {
+  "rms": 1.2787479733601192e-06,
+  "mean_pst": 8.600209677419352e-06,
+  "rms_over_mean": 0.14868799963303111,
+  "max_abs": 2.2565730912738665e-06,
+  "max_abs_at_deg": 72.0,
+  "max_signed": 2.2565730912738665e-06,
+  "data_over_model_by_band": {
+   "28-30": {
+    "n": 2,
+    "data_over_model_min": 1.0430195876209862,
+    "data_over_model_max": 1.0615269800019345
+   },
+   "32-38": {
+    "n": 4,
+    "data_over_model_min": 0.9617127698586293,
+    "data_over_model_max": 1.0739273433812193
+   },
+   "40-54": {
+    "n": 8,
+    "data_over_model_min": 0.7917410243260327,
+    "data_over_model_max": 0.9209286440230152
+   },
+   "56-58": {
+    "n": 2,
+    "data_over_model_min": 0.9336786451389112,
+    "data_over_model_max": 1.0883064989642652
+   },
+   "60-86": {
+    "n": 14,
+    "data_over_model_min": 1.184489884072508,
+    "data_over_model_max": 2.154338654584596
+   },
+   "88-88": {
+    "n": 1,
+    "data_over_model_min": 1.6450915425274655,
+    "data_over_model_max": 1.6450915425274655
+   }
+  },
+  "data_over_model_at_deg": {
+   "28": 1.0615269800019345,
+   "30": 1.0430195876209862,
+   "32": 0.9992312927164997,
+   "34": 0.9617127698586293,
+   "36": 0.9837709745105855,
+   "38": 1.0739273433812193,
+   "40": 0.8891506436365226,
+   "42": 0.9209286440230152,
+   "44": 0.8945741513412964,
+   "46": 0.8850279173259976,
+   "48": 0.7917410243260327,
+   "50": 0.8404335660112052,
+   "52": 0.9088022403644552,
+   "54": 0.8527052310556369,
+   "56": 1.0883064989642652,
+   "58": 0.9336786451389112,
+   "60": 1.361794143382335,
+   "62": 1.184489884072508,
+   "64": 1.2545381739140737,
+   "66": 1.6082156756391444,
+   "68": 1.465595483049252,
+   "70": 1.6126888252195988,
+   "72": 1.9560021040819626,
+   "74": 1.8673674471349786,
+   "76": 1.8763941285221117,
+   "78": 1.9269039621270536,
+   "80": 1.950242156183612,
+   "82": 2.154338654584596,
+   "84": 1.9396750939655205,
+   "86": 1.4689565252295398,
+   "88": 1.6450915425274655
+  },
+  "character": "SYSTEMATIC, not noise: the law runs below the data at 28-30 deg, above it at 40-54 deg and well below it over 60-86 deg"
+ },
+ "generator": "work/spectra_provenance/fit_liu2021_pst_exponential.py"
+}

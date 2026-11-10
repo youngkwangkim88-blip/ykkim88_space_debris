@@ -1,0 +1,37 @@
+# ROLO disk-equivalent reflectance A(lambda) at phase angle 7 deg, digitised from Toledano et al. 2024 (LIME) Fig. 1,
+# curve 'rolo_smoothed'; digitisation input sha256 8f44b03a230a0b26f060ba40524c4f0ad361f63c353eec88ab0acd51dfb4054a; derived by work/spectra_provenance/derive_moon_tables.py
+wavelength_nm,disk_equivalent_reflectance_g7
+350,0.0653
+400,0.0762
+450,0.0860
+500,0.0937
+550,0.1013
+600,0.1079
+650,0.1144
+700,0.1221
+750,0.1275
+800,0.1319
+850,0.1341
+900,0.1363
+950,0.1395
+1000,0.1450
+1050,0.1516
+1100,0.1559
+1150,0.1614
+1200,0.1668
+1250,0.1734
+1300,0.1778
+1350,0.1821
+1400,0.1865
+1450,0.1909
+1500,0.1952
+1550,0.1996
+1600,0.2040
+1650,0.2084
+1700,0.2105
+1750,0.2127
+1800,0.2160
+1850,0.2193
+1900,0.2215
+1950,0.2236
+2000,0.2280

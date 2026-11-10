@@ -1,0 +1,37 @@
+{
+  "unit": "ecl_000.0_-72.0|anti_solar_survey",
+  "visit": "S3",
+  "ra": 50.756714,
+  "dec": -60.759542,
+  "ray": [
+    0.3090169950932277,
+    0.37830838051657034,
+    -0.8725773696208732
+  ],
+  "omega_sr": 1.0153028391798523e-08,
+  "masked_columns": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "zero_point": {
+    "t_mag": 10.0,
+    "rate_e_per_s": 15000.0,
+    "t_of_vega": 0.0,
+    "source": "TESS Instrument Handbook v0.1 (Dec 2018): a T = 10 star gives about 15,000 e-/s (zero point 20.44), 'confirmed to a few percent' in flight; T is Vega-based with T(Vega) = 0 by definition (Sullivan et al. 2015, ApJ 809, 77, Sect. 2.2)",
+    "empirical_zero_point_range_mag": [
+      20.401,
+      20.506
+    ],
+    "empirical_source": "Handberg et al. 2021, Sect. 8: aperture photometry on calibrated FFIs of sectors 1-6, zp 20.401-20.506 (mean 20.451)"
+  },
+  "J2016_JD": 2457389.0
+}

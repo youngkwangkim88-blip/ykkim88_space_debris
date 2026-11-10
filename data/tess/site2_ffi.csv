@@ -1,0 +1,7 @@
+visit,file,url,quality,start_btjd,stop_btjd
+S29_3-4,tess2020242134914-s0029-3-4-0193-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2020242134914-s0029-3-4-0193-s_ffic.fits,0,2091.078267001118,2091.085211211051
+S29_3-4,tess2020254052914-s0029-3-4-0193-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2020254052914-s0029-3-4-0193-s_ffic.fits,0,2102.731184245902,2102.738128455837
+S29_3-4,tess2020258113913-s0029-3-4-0193-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2020258113913-s0029-3-4-0193-s_ffic.fits,0,2106.988166380538,2106.995110590472
+S2_3-4,tess2018251205941-s0002-3-4-0121-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2018251205941-s0002-3-4-0121-s_ffic.fits,0,1370.377354800781,1370.39818789438
+S2_3-4,tess2018254162941-s0002-3-4-0121-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2018254162941-s0002-3-4-0121-s_ffic.fits,0,1373.189879534574,1373.210712628173
+S2_3-4,tess2018257102940-s0002-3-4-0121-s_ffic.fits,https://mast.stsci.edu/api/v0.1/Download/file/?uri=mast:TESS/product/tess2018257102940-s0002-3-4-0121-s_ffic.fits,0,1375.939897971929,1375.960731065527

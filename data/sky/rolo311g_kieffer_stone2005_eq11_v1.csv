@@ -1,0 +1,14 @@
+# ROLO lunar irradiance model version 311g: Kieffer & Stone 2005, AJ 129, 2887 (doi:10.1086/430185), Eq. 11 (journal p. 2897),
+# the eight wavelength-independent constants of Eq. 10 (c1..c4 multiply the observer's selenographic latitude/longitude in
+# degrees, c3 and c4 also the Sun's selenographic longitude in radians; p1..p4 are degrees and act on the phase angle in degrees).
+# Source PDF sha256 1666a5414916c2e38fcf34097aad3794cc1aae9d4a7d090bef2a049219316e96. Signs by the same two readings as Table 4; they agree on all 8 constants, 2 negative.
+# Transcribed by work/spectra_provenance/derive_rolo311g_table.py
+name,value,unit
+c1,0.00034115,deg^-1
+c2,-0.0013425,deg^-1
+c3,0.00095906,deg^-1 rad^-1
+c4,0.00066229,deg^-1 rad^-1
+p1,4.06054,deg
+p2,12.8802,deg
+p3,-30.5858,deg
+p4,16.7498,deg

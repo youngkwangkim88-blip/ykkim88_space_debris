@@ -1,0 +1,5 @@
+shape,exposure_s,surface_spin,speed,phase,sky,response
+plate,0.5,67.90,11.22,4.26,0.016,0.144
+plate,4,67.16,12.77,2.99,0.36,0.12
+cuboid,0.5,63.65,12.48,5.20,0.017,0.170
+cuboid,4,63.34,13.10,4.36,0.35,0.13

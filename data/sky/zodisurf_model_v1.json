@@ -1,0 +1,175 @@
+{
+ "schema": "synth-sky-zodisurf-parameters/v1",
+ "status": "DECLARED_NAMED_ALTERNATIVE_ZODISURF_ALONE_NOT_THE_DEFAULT",
+ "model_id": "ZODISURF_SKYSURF11_KELSALL1998_GEOMETRY",
+ "named_alternative": "ZODISURF_ALONE",
+ "source": {
+  "paper": "O'Brien et al. 2026, SKYSURF-11: A New Zodiacal Light Model Optimized for Optical Wavelengths, ApJ 1000, 6; arXiv:2510.18231v2 (28 Apr 2026)",
+  "equation_locator": "arXiv:2510.18231v2 HTML rendering (https://arxiv.org/html/2510.18231v2): Eq. 2 (scattering-only line-of-sight integral), Eq. 4 (three Henyey-Greenstein terms), Eq. 13 (normalisation of the phase function to 1 over the sphere), Eqs. 15-21 (albedo and phase parameters linear in wavelength); App. B (validity 0.3-1.6 um, Sun angle above 80 deg)",
+  "equation_locator_note": "the v2 PDF typesetting numbers the same relations one lower (normalisation Eq. 12, coefficients Eqs. 14-20); this file follows the HTML numbering the HMI lane's decision cites",
+  "implementation_contract": "the paper's printed (rounded) coefficients; the authors' public repository carries no licence, no code is taken from it, and its unrounded numbers are not part of this contract",
+  "geometry": "Kelsall et al. 1998, ApJ 508, 44, Table 1 and Eqs. 6, 8, 9, in the forms of the DIRBE model code (dust bands with 1 + (zeta/delta_zeta)^p / v; ring and trailing feature without the factor 1/2; Planck 2013 XIV Sect. 4.1); the full-precision values are identical in zodipy 1.1.5 component_params.DIRBE and in the ZodiSURF public code's aend_og_wlabels.json"
+ },
+ "scattering": {
+  "albedo": {
+   "slope_per_um": 0.113,
+   "intercept": 0.082,
+   "paper_eq": 15
+  },
+  "g": [
+   {
+    "term": "forward",
+    "slope_per_um": 0.25,
+    "intercept": 0.116,
+    "paper_eq": 16
+   },
+   {
+    "term": "backward",
+    "slope_per_um": 0.054,
+    "intercept": -0.309,
+    "paper_eq": 17
+   },
+   {
+    "term": "gegenschein",
+    "slope_per_um": 0.0,
+    "intercept": -0.87,
+    "paper_eq": 18
+   }
+  ],
+  "w": [
+   {
+    "term": "forward",
+    "slope_per_um": 0.0018,
+    "intercept": 0.0478,
+    "paper_eq": 19
+   },
+   {
+    "term": "backward",
+    "slope_per_um": -0.0014,
+    "intercept": 0.0312,
+    "paper_eq": 20
+   },
+   {
+    "term": "gegenschein",
+    "slope_per_um": 0.0,
+    "intercept": 0.0003,
+    "paper_eq": 21
+   }
+  ],
+  "phase_function": "Phi(Theta) = sum_i w_i (1 - g_i^2) / (1 + g_i^2 - 2 g_i cos Theta)^(3/2), per steradian, no 1/(4 pi) factor (Eq. 4); Theta = 0 is forward scattering; Eq. 13 normalises it to 1 over the sphere, i.e. 4 pi sum_i w_i = 1, which the paper's fit holds within 0.003 (Sect. 6.2); used as published, not renormalised"
+ },
+ "geometry": {
+  "frame": "heliocentric mean ecliptic and equinox of J2000, astronomical units",
+  "cloud": {
+   "x0": 0.011887800744346281,
+   "y0": 0.005476506466226378,
+   "z0": -0.0021530908020710744,
+   "i_deg": 2.033518807239077,
+   "Omega_deg": 77.65795555409711,
+   "n0_per_au": 1.134437388142796e-07,
+   "alpha": 1.337069670593028,
+   "beta": 4.141500415758664,
+   "gamma": 0.9420617939335804,
+   "mu": 0.1887317648909019
+  },
+  "band1": {
+   "i_deg": 0.5643826515438973,
+   "Omega_deg": 80.0,
+   "n0_per_au": 5.589029040322837e-10,
+   "delta_zeta_deg": 8.785053440871303,
+   "v": 0.10000000149011612,
+   "p": 4.0,
+   "delta_r_au": 1.5
+  },
+  "band2": {
+   "i_deg": 1.2000000476837158,
+   "Omega_deg": 30.347475578624532,
+   "n0_per_au": 1.98776094225908e-09,
+   "delta_zeta_deg": 1.991703242577764,
+   "v": 0.8999999761581421,
+   "p": 4.0,
+   "delta_r_au": 0.9412188120165115
+  },
+  "band3": {
+   "i_deg": 0.800000011920929,
+   "Omega_deg": 80.0,
+   "n0_per_au": 1.4369827283512384e-10,
+   "delta_zeta_deg": 15.0,
+   "v": 0.05000000074505806,
+   "p": 4.0,
+   "delta_r_au": 1.5
+  },
+  "ring": {
+   "i_deg": 0.4870716600681924,
+   "Omega_deg": 22.278979678854448,
+   "n0_per_au": 1.8260527826501675e-08,
+   "R_au": 1.0281924326308751,
+   "sigma_r_au": 0.02500000037252903,
+   "sigma_z_au": 0.0540680373569781
+  },
+  "feature": {
+   "i_deg": 0.4870716600681924,
+   "Omega_deg": 22.278979678854448,
+   "n0_per_au": 2.0094267183590947e-08,
+   "R_au": 1.0579182694524214,
+   "sigma_r_au": 0.10287314662396611,
+   "sigma_z_au": 0.09144296376871602,
+   "theta_deg": -10.0,
+   "sigma_theta_deg": 12.11521093393874
+  }
+ },
+ "line_of_sight": {
+  "r_max_au": 5.2,
+  "shells_au": {
+   "cloud": [
+    0.0,
+    5.2
+   ],
+   "band1": [
+    0.0,
+    5.2
+   ],
+   "band2": [
+    0.0,
+    5.2
+   ],
+   "band3": [
+    0.0,
+    5.2
+   ],
+   "ring": [
+    0.8,
+    1.2
+   ],
+   "feature": [
+    0.7,
+    1.3
+   ]
+  },
+  "quadrature": "Gauss-Legendre per component over the part of the ray inside its shell",
+  "n_quad": 50,
+  "note": "the public code integrates every component on one Simpson grid of 0.025 AU steps to the 5.2 AU sphere; zodipy uses 50-point Gauss-Legendre per component over the same shells as here"
+ },
+ "domain": {
+  "wavelength_um": [
+   0.3,
+   1.6
+  ],
+  "wavelength_rule": "a solar spectrum with weight outside 0.3-1.6 um is refused when the provider is built (ZL_ZODISURF_WAVELENGTH_OUTSIDE_DOMAIN); a kernel requested outside it is refused, never clamped",
+  "sun_angle_min_deg": 80.0,
+  "sun_angle_rule": "a node whose solar elongation is 80 deg or less is REFUSED (ZL_ZODISURF_SUN_ANGLE_OUTSIDE_DOMAIN, NaN) and nothing is computed there; the supported provider takes no argument that moves the limit; never spliced with the ETC table; the older DIRBE 64-deg coverage does not validate the optical phase function at 64-80 deg"
+ },
+ "excluded": {
+  "isotropic_terms": "no isotropic component: neither the paper's residual diffuse light (0.013 MJy/sr, Sect. 6.4; wavelength-dependent HST Sky - DGL - ZodiSURF of unresolved origin) nor its spherical toy component (Sect. 7.3, fitted at 1.25 um) is a calibrated 400-1000 nm camera component",
+  "anchoring": "no V anchor, no Leinert recolouring, no TESS-fitted scale, no ETC-shape hybrid"
+ },
+ "kelsall_1p25um_reference_mode": {
+  "use": "test oracle for the shared geometry only (Kelsall's own scattering at 1.25 um); never a sky model here",
+  "albedo": 0.20411939612669797,
+  "phase_C0": -0.94209999,
+  "phase_C1": 0.1214,
+  "phase_C2": -0.1648,
+  "solar_irradiance_MJy": 234056060.0,
+  "source": "Kelsall et al. 1998 Table 2 at 1.25 um as carried by zodipy 1.1.5 source_params (ALBEDO_DIRBE, C1_DIRBE, C2_DIRBE, C3_DIRBE, SOLAR_IRRADIANCE_DIRBE)"
+ }
+}

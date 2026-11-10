@@ -1,0 +1,121 @@
+{
+ "schema": "physics-sky-zodisurf-plus-isotropic-residual/v1",
+ "revision": "2026-10-15",
+ "status": "DECLARED_NAMED_ALTERNATIVE_NOT_THE_DEFAULT",
+ "named_alternative": "ZODISURF_PLUS_ISOTROPIC_RESIDUAL",
+ "model_id": "ZODISURF_SKYSURF11_KELSALL1998_GEOMETRY_PLUS_OBRIEN2026_TABLE4_ISOTROPIC_RESIDUAL",
+ "colour_law": "ZODISURF_ALBEDO_AND_PHASE_FUNCTION_PER_NODE_ABSOLUTE_PLUS_TABULATED_ISOTROPIC_RESIDUAL_NO_V_ANCHOR",
+ "authority": {
+  "decided_by": "HUMAN, 2026-10-14",
+  "human_direction_relayed": {
+   "verbatim_korean": "우리 조디서프는 모델이 복잡한가? 나는 우리 양산에는 98년문하고, 조디서프 둘다 되게하고, 논문에는 조디서프를 쓰고 싶어. 이유는 위도 의존성이 없는게 좋아. 일관적으로 밝기가 어두운건 조디서프 논문에서도 언급하고 있지 않니? 그렇다면 문제가 없어. 8% 오차 수준은 우리 광학에서 보면 1차가 아니라, 3차, 즉 2차항의 오차이기 때문에 문제 없어보여.",
+   "english_gloss": "Is our ZodiSURF model complex? For production I want both the 1998 paper (Leinert) and ZodiSURF to work, and I want to use ZodiSURF in the paper, because having no latitude dependence is good. Doesn't the ZodiSURF paper itself mention that it is consistently darker? Then there is no problem. An error at the 8 % level is, from the standpoint of our optics, not first order but third order, that is, an error of the second-order term, so it looks fine. (Derived reading; the Korean governs.)",
+   "lead_reading": "production supports both zodiacal sources, selectable by declaration: the default ETC Table 2 (Leinert et al. 1998 Table 17) with the Leinert Eq. 22 colour, and ZodiSURF; the paper uses ZodiSURF in this form (Z1), ZodiSURF plus the isotropic residual the paper itself reports; ZodiSURF alone (Z0) stays available as a named option",
+   "channel": "relayed to the authoring agent by the SYNTH/PHYSICS lead in session on 2026-10-14; no committed ruling record carries it, and this declaration records its words, not a ruling"
+  },
+  "elongation_limit_direction": {
+   "decided_by": "HUMAN, 2026-10-15",
+   "verbatim_korean": "멈춘 프로세스는 종료해도 되고, 이각 30%까지 적용해줘.",
+   "english_gloss": "The stopped process may be terminated, and apply it down to an elongation of 30%. (Derived reading; the Korean governs.)",
+   "lead_reading": "30% is read as 30 degrees of solar elongation: Z1's declared limit domain.sun_angle_min_deg becomes 30 deg, with the same equations, printed coefficients, wavelength treatment and isotropic-residual convention; ZODISURF_ALONE keeps 80 deg; the first clause concerns a stalled regression runner and decides nothing here",
+   "ruling_record": "decisions/rulings/RULING-HUMAN-Z1-ELONGATION-LIMIT-30-DEG-20261015.md",
+   "relayed_also_by": "Codex mail c392f236-bf3a-40cd-9a26-aa440b7e55e8 (informational only): the same direction in degrees, with the published validation range and the extrapolated range kept apart"
+  },
+  "relation_to_earlier_decisions": "The HMI lane's decision 2f897304 (ZodiSURF point 2: no isotropic term) governs ZODISURF_ALONE, which keeps it; contract/sky_background_v1.json, contract/sky_background_e12_v1.json, contract/sky_radiance_v1.json and contract/sky/zodisurf_model_v1.json keep their bytes and digests. This named alternative exists beside ZODISURF_ALONE by the HUMAN's direction and edits none of them."
+ },
+ "authority_limit": "Declares one named zodiacal source. It does not change the default, select a source for any sky declaration (the consumer's own candidate does that), launch or re-render anything, or make a scientific claim: the residual's physical origin is unresolved in the paper, and reproducing an earlier analysis is not a validation.",
+ "kernel": {
+  "named_alternative": "ZODISURF_ALONE",
+  "provider": "the body of zodisurf_model.zodisurf_provider(wave_nm, solar_sed_w_m2_nm), unchanged (zodisurf_model._kernel_provider), refusing at domain.sun_angle_min_deg of this declaration",
+  "parameters": {
+   "path": "contract/sky/zodisurf_model_v1.json",
+   "sha256": "6e41813c5311144d03796c0416eb328b73e8d009bb75bc2d79ddfc3ff47cacd1"
+  },
+  "rule": "the sum is built on exactly this parameter file; a provider built on any other parameters is refused"
+ },
+ "isotropic_residual": {
+  "table": {
+   "path": "contract/sky/zodisurf_isotropic_residual_obrien2026_table4_v1.csv",
+   "sha256": "c3454d830d2d657d23e0981cfdac1cccccfc1c376e7d0d2196485b2fb96aeef7",
+   "digest_rule": "sha256 of the file bytes with CRLF normalised to LF, as load_parameters hashes the parameter file",
+   "rows": 25,
+   "column_used": "diffuse_light_MJy_sr"
+  },
+  "source": {
+   "bibliography_key": "obrien2026zodisurf",
+   "custody": "WI-RESEARCH-BIBLIOGRAPHY: evidence/sky_background_tess_acquisition_20260927.json registers the held object; content-store object 49/497f13b471d42d6440a61740da69f7b185d5add839bcb791d6235a59c3533831.pdf",
+   "doi": "10.3847/1538-4357/ae4512",
+   "held_copy": "arXiv:2510.18231v2, the author eprint, not the version of record; page numbers are the eprint's PDF pages",
+   "pdf_sha256": "497f13b471d42d6440a61740da69f7b185d5add839bcb791d6235a59c3533831",
+   "table": "Table 4, PDF page 16",
+   "column": "column 6, Diffuse Light [MJy sr^-1]: the residual diffuse light brightness, HST Sky - DGL - ZodiSURF",
+   "definition": "Eq. 22 in the eprint's PDF numbering (Sect. 6.4, Diffuse Light, PDF page 15)",
+   "caption_condition": "pointings within 20 deg of the ecliptic plane are ignored for the diffuse-light measurements",
+   "transcription": "typed from the rendered page and checked cell by cell against the page's text layer: 25 rows, 7 cells each, no difference",
+   "not_used": "the uncertainty columns (sigma_stat, sigma_sys, sigma_DL) are carried for provenance only; the abstract's single value 0.013 +- 0.006 MJy sr^-1 (PDF page 1) is not used"
+  },
+  "quantity": "J, a specific intensity I_nu in MJy sr^-1 (1 MJy sr^-1 = 1e-20 W m^-2 Hz^-1 sr^-1)",
+  "nodes": "the distinct printed pivot wavelengths (19, 0.34 to 1.54 um); where several rows share a printed pivot (0.43 um: 2 rows, 0.47: 3, 0.58: 2, 0.76: 2, 0.80: 2) the node value is the arithmetic mean of their column-6 values",
+  "interpolation": "linear in wavelength between consecutive nodes, in I_nu",
+  "outside_the_pivots": "held at the end node's value on 0.30 <= lambda < 0.34 um and on 1.54 < lambda <= 1.60 um; never extended by a slope",
+  "outside_the_domain": "a grid wavelength outside 0.30-1.60 um (ZodiSURF's domain, kernel.parameters domain.wavelength_um) refuses the provider when it is built, key ZL_ZODISURF_WAVELENGTH_OUTSIDE_DOMAIN: the residual adds light at every grid wavelength",
+  "conversion": "I_iso [W m^-2 sr^-1 nm^-1] = J [MJy sr^-1] * 1e-20 * c / lambda_m^2 * 1e-9, c = 299792458 m/s, lambda_m the wavelength in metres; applied at each grid wavelength after J is interpolated",
+  "application": "added once to ZODISURF_ALONE's absolute radiance at every node the kernel supports (solar elongation above domain.sun_angle_min_deg); the same radiance at every node, direction and epoch; no solar spectrum, V anchor, colour factor, scale or TESS fit enters it",
+  "never": "never at a node ZodiSURF refuses, never with the ETC table, never added to a radiance that is not ZODISURF_ALONE's, never twice",
+  "construction_origin": "the node and interpolation rule is the one the 2026-10-14 TESS analysis L16 declared before it computed any ratio (predeclaration_l16.json, sha256 8d87f3eef3626a83cb81754f398fe8b0a6aee494615fd949f0dd967710f0ed18, zodisurf_variants.Z1.wavelength_handling)"
+ },
+ "domain": {
+  "wavelength_um": [
+   0.3,
+   1.6
+  ],
+  "sun_angle_min_deg": 30.0,
+  "rule": "a node at or inside sun_angle_min_deg of solar elongation is REFUSED (ZL_ZODISURF_SUN_ANGLE_OUTSIDE_DOMAIN, NaN, nothing computed, no residual alone); never spliced with the ETC table",
+  "sun_angle_min_deg_role": "the one home of this alternative's refusal limit: the provider reads it here and nowhere else (zodisurf_model.isotropic_residual_sun_angle_min_deg), and this declaration's digest, which a consumer binds into its science identity, moves with it. Its value is 30 deg by the HUMAN's direction of 2026-10-15 (authority.elongation_limit_direction). ZODISURF_ALONE keeps its published 80 deg (contract/sky/zodisurf_model_v1.json domain.sun_angle_min_deg). The two ranges below are stated separately and are never merged.",
+  "published_fitting_domain": {
+   "sun_angle_deg": "above 80",
+   "basis": "O'Brien et al. 2026 (held eprint arXiv:2510.18231v2): SKYSURF's sky measurements cover Sun angles from 80 to 180 deg, and images taken with a Sun angle below 80 deg are excluded by the selection (Sect. 3, PDF page 6); the HST observations below 80 deg are excluded because of stray-light concerns, so the model is reliable only above 80 deg (Sect. 6, PDF page 12); HST did not observe below 80 deg, so ZodiSURF does not constrain smaller angles (Fig. 12 caption, PDF page 20); the public code is reliable only above 80 deg (App. B, PDF page 27)",
+   "accuracy": "about 4.5 percent (abstract, PDF page 1; Sect. 6.3, PDF page 15), stated by the paper for this domain only"
+  },
+  "adopted_extrapolation": {
+   "sun_angle_deg": [
+    30.0,
+    80.0
+   ],
+   "interval": "above 30 deg and up to and including 80 deg",
+   "rule": "the same equations, printed coefficients, wavelength treatment and isotropic residual as above 80 deg, evaluated unchanged; no new fit, no splice to another model",
+   "accuracy": "the published accuracy of about 4.5 percent is NOT claimed for this interval: no observation establishes the accuracy of these coefficients there",
+   "tess": "the retained TESS comparisons sample solar elongations down to 60.36 deg at the smallest (the quiet cadences of the 2026-10-14 TESS analysis L16, its out/units_l16.json, sha256 c9aa62001aaa76e8acebf3953f15193a928133832e549d52c886403583e09147, unit ecl_165.0_+60.0, sun-side high latitude), and L16's ZodiSURF ratios used cadences above 80 deg only; they are selected comparisons, not an all-sky validation of 30 to 80 deg, and contain no observation at 30 deg",
+   "physical_context": "four years of Helios zodiacal-light observations show a smooth distribution of interplanetary dust (Leinert, Richter, Pitz and Hanner 1980, Solid Particles in the Solar System, IAU Symposium 90, pp. 15-18, doi:10.1017/S0074180900066377); context only, they do not validate the extrapolated ZodiSURF coefficients"
+  }
+ },
+ "statuses": [
+  "ZL_OK",
+  "ZL_ZODISURF_SUN_ANGLE_OUTSIDE_DOMAIN"
+ ],
+ "refusal_keys": [
+  "ZL_ZODISURF_WAVELENGTH_OUTSIDE_DOMAIN"
+ ],
+ "kernel_550_sr": "the 550 nm V-equivalent background_map reports for a provider is the total, K_550 of ZODISURF_ALONE + I_iso(550) / F_sun(550); the provider also returns ZODISURF_ALONE's value as zodisurf_alone_kernel_550_sr",
+ "approximations": [
+  "ZODISURF_PLUS_ISOTROPIC_RESIDUAL_NAMED_ALTERNATIVE_NOT_THE_DEFAULT",
+  "ISOTROPIC_RESIDUAL_OBRIEN2026_TABLE4_COLUMN6_HST_SKY_MINUS_DGL_MINUS_ZODISURF",
+  "ISOTROPIC_RESIDUAL_RELATIVE_TO_THE_PAPERS_DGL_ESTIMATOR_AND_HST_CALIBRATION_ORIGIN_UNRESOLVED",
+  "ISOTROPIC_RESIDUAL_MEASURED_AWAY_FROM_THE_ECLIPTIC_APPLIED_AT_EVERY_SUPPORTED_NODE",
+  "ISOTROPIC_RESIDUAL_DERIVED_AGAINST_THE_AUTHORS_FITTED_ZODISURF_NOT_THE_PRINTED_COEFFICIENTS",
+  "ISOTROPIC_RESIDUAL_SAME_PIVOT_ROWS_AVERAGED_LINEAR_BETWEEN_PIVOTS_END_VALUES_HELD",
+  "ISOTROPIC_RESIDUAL_ADDED_ONCE_NO_SCALE_NO_TESS_FIT",
+  "ZODISURF_EXTRAPOLATED_FROM_THE_PUBLISHED_80_DEG_FITTING_DOMAIN_DOWN_TO_30_DEG_ACCURACY_NOT_CLAIMED_THERE"
+ ],
+ "approximation_rule": "a provider output carries ZODISURF_ALONE's tokens without ZODISURF_ALONE_NAMED_ALTERNATIVE_NOT_THE_DEFAULT and NO_ISOTROPIC_COMPONENT_EXCLUDED_BY_CONSTRUCTION, with the elongation-limit token written from domain.sun_angle_min_deg (SUN_ANGLE_AT_OR_BELOW_<limit>_DEG_REFUSED_NO_SPLICE_NO_EXTRAPOLATION, ZODISURF_ALONE's own token at 80 deg), followed by this list",
+ "specification": "contract/sky_background_v1.md section 5",
+ "evidence": {
+  "owned_test": "work/tests/test_zodisurf_plus_isotropic_residual.py (the paper's printed numbers, the unit conversion through an independent route, the refusals and the declared limit they follow, the once-only sum, and the L16 numbers on L16's stored geometry)",
+  "measurement": "evidence/zodisurf_z1_provider_20261014/measurements.json (cost per node and per field against the ETC table; L16 reproduction), measured under the 80-deg declaration it names (27886b9c...); the limit change moves no cost per node, and that record's chunk comparisons are the 80-deg declaration's"
+ },
+ "supersedes": {
+  "declaration_sha256": "27886b9ccd1a4eb050ef862826f4bf1ed4df6f6fa4fe0a4c16b425154df97c67",
+  "what": "this declaration with the limit at 80 deg (revision 2026-10-14), landed on main at bde64d26; the only change of effect is domain.sun_angle_min_deg and the token it implies"
+ },
+ "declaration_sha256": "f9b87efb1812a8052e1a99fb612c58f76bca143635aaf73f32e71738a1b27c49"
+}
