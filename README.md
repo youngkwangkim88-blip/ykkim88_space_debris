@@ -1,10 +1,10 @@
 # Optical detectability of rotating debris
 
-Reproduce selected results of the A1 v27 r7 manuscript on a CPU. Change a fragment's material, spin, angular speed, exposure, sensor response or background and calculate its expected SNR and SNR-10 range. Measure a sky background directly from a calibrated TESS time series. [한국어 실행 안내](README.ko.md) · [Input sources and reuse](SOURCES.md).
+Reproduce selected results of the A1 v27 r8 manuscript on a CPU. Change a fragment's material, spin, angular speed, exposure, sensor response or background and calculate its expected SNR and SNR-10 range. Measure a sky background directly from a calibrated TESS time series. [한국어 실행 안내](README.ko.md) · [Input sources and reuse](SOURCES.md).
 
 ## Run the paper examples
 
-The tagged code and data for r7 include two camera checks described below. [r7 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc4) · [Earlier r6 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3).
+The r8 release includes the scene and stamp inputs for the median 7.58% range loss in Figure 3.6 and an optical reconstruction of the first 4 s in Figure 3.2. [r8 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc5) · [r7 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc4) · [r6 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3).
 
 With Python 3.10, create a virtual environment, activate it, and run the commands below. Installing the three pinned packages needs a package index or a wheel cache. The examples then run offline with the files in this directory.
 
@@ -21,11 +21,14 @@ python goldens.py
 | `python coadd.py` | Follow one rotating plate through the same four seconds at 329.5233 km. Print SNR for a linear unshifted sum with fixed or optimum weights and for the original time-resolved frames with optimum known-template weights. The fixed-sum SNR is 11.064 for a single 4 s read and 4.743 for eight 0.5 s reads in the weak E12 example. The dark and flat masters are shared within each read scheme. |
 | `python tess.py` | Fit the stars and sky in the bundled Sector 3 FITS. Of 1,288 available cadences, the retained window uses 731 and gives 78.947314 electrons per native pixel per second. Separately, reduce the 250 paper window measurements to 98 visits and 57 equal-weight units. The RMS of (model − observed)/observed is 9.80885%. |
 | `python factors.py` | Reduce the archived SNR grids at 329.5 km to all 20 displayed first-order shares in Table 5.1. The denominator is total variance of log SNR over the specified grid for that exposure and shape. |
+| `python figure36.py --output figure36.csv` | Select the weak and strong 4 s E12 field-mean skies across 43 simulated scenes. Solve Eq. (1) for each of 68 eligible catalogue-debris stamps in 20 scenes (50 objects). The median of the paired percentage range losses is 7.5844%, with P5–P95 of 6.4772–8.0853%. The CSV gives each stamp's recalculated distances and losses. [Scene and stamp inputs, selection, and equations](data/figure36/README.md). |
 | `python reproduce.py` | Runs the preceding examples and a 512-draw Monte Carlo check. For the historical 13 e⁻ read-noise streak the measured-to-analytic weighted variance ratio is 1.06615. The range and coadd examples use the paper's separate 3.3 e⁻ virtual sCMOS. |
 
 ### Rebuild a detector frame and check the PSF
 
 Run `python figure32.py --output figure32_a.npz` to reconstruct Figure 3.2(a). The input is the archived noiseless target in the first 4 s under the weak E12 sky. The example redraws the fixed pixel maps, 64 darks, 32 flats and the science exposure. It checks all 65 × 305 raw DN and calibrated float32 pixels against the archived frame. The panel uses the nominal 5000 e⁻/pixel flat level. The range calculation in Eq. (1) propagates uncertainty in the measured full-field flat mean and covariance from reusing the same master dark. [Code](figure32.py) · [Frame inputs and provenance](data/figure32/README.md).
+
+With `python figure32.py --from-optics`, the example builds the target from the first sampled rotating plate, optical response and moving PSF, and recomputes the two dated skies. The three panels have expected charges of 1156.69, 1156.69 and 2142.84 e⁻ and SNRs of 11.0638, 9.1170 and 13.7697. Panel (a) also has an archived pixel-by-pixel detector comparison.
 
 For a separate optical check, install `python -m pip install poppy==1.1.2` in the same environment and run `python check_scmos_poppy.py`. On the paper's 2.8 µm virtual sCMOS, the largest absolute pixel difference between the two calculations, divided by the paper image peak in the same window, is 0.5492% (E5) and 0.6808% (E12) for a centred point. For a uniform 0.5 s trail at 130.4423 arcsec/s it is 0.1818% and 0.1978%. These checks compare propagation through the same ideal pupil. The 0.117% and 0.032% values in supplement S3 use the 5.5 µm CMV4000 and Vega weighted by Gaia G. [POPPY comparison](check_scmos_poppy.py).
 

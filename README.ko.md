@@ -1,6 +1,6 @@
 # A1 파편 광학·하늘 배경 재현 예제
 
-논문 v27 r7의 예제에는 그림 3.2(a)의 검출기 영상과 가상 sCMOS의 점확산함수(PSF) 검산 코드가 들어 있다. Python 3.10 환경에서 아래 명령으로 논문 예제와 골든 테스트를 실행한다. 의존성을 설치한 뒤에는 기본 예제에 필요한 관측 영상과 모형 입력이 모두 이 폴더에 있다. [r7 공개판](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc4) · [이전 r6 공개판](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3) · [영문 실행 안내](README.md) · [원자료와 이용 조건](SOURCES.md)
+논문 v27 r8의 예제에는 그림 3.6의 거리 감소율을 구하는 장면·광적 입력과 그림 3.2의 파편 회전·광학계부터 영상을 재현하는 코드가 들어 있다. Python 3.10 환경에서 아래 명령으로 논문 예제와 골든 테스트를 실행한다. 의존성을 설치한 뒤에는 기본 예제에 필요한 관측 영상과 모형 입력이 모두 이 폴더에 있다. [r8 공개판](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc5) · [r7 공개판](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc4) · [r6 공개판](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3) · [영문 실행 안내](README.md) · [원자료와 이용 조건](SOURCES.md)
 
 ```sh
 python -m pip install -r requirements.txt
@@ -13,10 +13,13 @@ python goldens.py
 - **단노출 합성** — `python coadd.py`는 같은 네 초 동안 수집한 광자를 단일 4초 노출 또는 2·0.5·0.1초 판독으로 나누어, 한 장으로 합쳤을 때와 시간순 원본을 보존했을 때의 가중 SNR을 대조한다.
 - **TESS 실측** — `python tess.py`는 동봉한 25×25화소 FITS에서 731개 시점으로 배경 78.947314 e⁻/화소/s를 얻는다. 총배경 오차 9.80885%는 별도 관측창 250개의 측광표를 방문·표본 순으로 집계한 값이다.
 - **통계 검산** — `python factors.py`는 저장된 SNR 격자에서 표 5.1을 계산한다. `python reproduce.py`는 위 예제와 광자·판독잡음을 새로 뽑는 512회 분산 검산을 함께 실행한다.
+- **그림 3.6 거리 감소율** — `python figure36.py --output figure36.csv`는 E12 정사각형 43개 장면의 시야 평균에서 약·강 배경을 고른다. 20개 장면에서 50개 물체의 광적 68건에 대해 식 (1)의 양의 근을 각각 구한다. 광적별 감소율의 중앙값은 7.5844%, 5–95백분위는 6.4772–8.0853%다. CSV에 광적별 거리와 감소율을 기록한다. [장면·광적 원자료와 표본 선택](data/figure36/README.md)
 
 ## 그림 3.2(a)와 가상 sCMOS의 PSF 검산
 
 `python figure32.py --output figure32_a.npz`는 약한 배경에서 얻은 첫 4초 E12 영상의 잡음 없는 표적 기대 전자수를 입력으로 사용한다. 고정무늬 지도, 다크 64장, 플랫 32장과 과학 노출의 잡음을 다시 생성한 뒤 65×305화소의 원시 DN과 float32 보정 전자수를 원본과 대조한다. 그림은 플랫의 명목 평균 5000 e⁻/화소를 사용한다. 거리표의 식 (1)은 전 시야 평균의 추정 불확도와 동일한 마스터 다크를 두 곳에 사용하면서 생기는 공분산을 반영한다. [실행 코드](figure32.py) · [프레임 입력과 출처](data/figure32/README.md)
+
+`python figure32.py --from-optics`는 같은 회전판의 첫 자세, 광학계와 이동 PSF를 적산하고 두 날짜의 배경도 계산한다. (a)·(b)·(c)의 표적 전하는 1,156.69·1,156.69·2,142.84 e⁻, 기대 SNR은 11.0638·9.1170·13.7697이다. (a)는 새로 생성한 기댓값을 검출기에 넣어 원시·보정 영상의 모든 화소까지 대조한다.
 
 같은 환경에서 `python -m pip install poppy==1.1.2`를 실행한 뒤 `python check_scmos_poppy.py`를 실행하면, 동일한 이상 동공에서 두 방식으로 계산한 PSF를 비교한다. 현재 가상 sCMOS(2.8 µm)의 E5·E12에서 같은 창의 논문 영상 피크 대비 최대 화소차는 정지점 0.5492%·0.6808%, 130.4423″/s로 0.5초 이동한 등광도 광적 0.1818%·0.1978%다. 보충자료 S3의 0.117%·0.032%는 5.5 µm CMV4000과 Vega×Gaia G 조건에서 얻었다. [POPPY 검산 코드](check_scmos_poppy.py)
 

@@ -40,17 +40,50 @@ def detector_and_masters(stripe_shape):
     return sensitivity, dark_rate, bias_e, master_dark_e, flat_minus_dark_e
 
 
-def reproduce(output=None):
+def panel_optics():
+    """Integrate the first rotating plate over 4 s for the three illumination/sky pairs."""
+    from scipy.constants import astronomical_unit
+    import coadd
+    import sky
+
+    state = coadd.setup("E12")
+    state.initial_attitudes = state.initial_attitudes[:1]
+    state.spin_axes = state.spin_axes[:1]
+    t, attitudes = coadd.attitudes(state, "plate", 10.0)
+    scenes = sky.sightlines()
+    rates = {name: sum(sky.background(scenes[name], "E12").values()) for name in ("weak", "strong")}
+    templates = {}
+    for light in ("weak", "strong"):
+        geometry = scenes[light]
+        flux = coadd.factor(state, attitudes, "plate", "grey", geometry["target_phase_far_sun_deg"])
+        flux *= (astronomical_unit / 1000 / geometry["sun_distance_km"]) ** 2
+        templates[light] = coadd.split_templates(state, flux, t, 4 / len(t), 1, 4)
+    for panel, light, background in (("a", "weak", "weak"), ("b", "weak", "strong"),
+                                     ("c", "strong", "strong")):
+        stats = coadd.statistics(templates[light], rates[background], EXPOSURE_S)
+        print(f"({panel}) expected source = {stats['source_e']:.2f} e-, SNR = {stats['snr_sum_fixed']:.4f}")
+    return templates["weak"], rates["weak"]
+
+
+def reproduce(output=None, from_optics=False):
     with np.load(CASE, allow_pickle=False) as paper:
         # The archived noiseless source is float32. Use double precision for the
         # detector calculation, matching the original generator's arithmetic.
         target_e = paper["target_e"].astype(np.float64)
         height, width = target_e.shape
+        sky_rate = float(paper["sky_rate"])
+        if from_optics:
+            template, sky_rate = panel_optics()
+            optical_target = template.reshape(height, width)
+            error = np.max(np.abs(optical_target - target_e))
+            print(f"(a) maximum difference from archived float32 target: {error:.3g} e-")
+            np.testing.assert_allclose(optical_target, target_e, rtol=0, atol=1.e-6)
+            target_e = optical_target
         offsets = paper["crop_x"]
         stripe_shape = (height, int(offsets[-1]) + width)
         crop = np.s_[:, int(offsets[0]):int(offsets[0]) + width]
         sensitivity, dark_rate, bias_e, master_dark_e, flat_minus_dark_e = detector_and_masters(stripe_shape)
-        expected = sensitivity[crop] * (target_e + float(paper["sky_rate"]) * EXPOSURE_S)
+        expected = sensitivity[crop] * (target_e + sky_rate * EXPOSURE_S)
         expected += dark_rate[crop] * EXPOSURE_S
         raw_dn = read_detector(np.random.default_rng(88331), expected, bias_e[crop])
         science_minus_dark_e = raw_dn * GAIN_E_PER_DN - master_dark_e[crop]
@@ -78,4 +111,6 @@ def reproduce(output=None):
 if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--output", type=Path, help="write the reconstructed frame and full-stripe masters as NPZ")
-    reproduce(cli.parse_args().output)
+    cli.add_argument("--from-optics", action="store_true", help="integrate the optical template and compare panels a-c")
+    args = cli.parse_args()
+    reproduce(args.output, args.from_optics)

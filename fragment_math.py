@@ -111,10 +111,10 @@ def variance_coefficients(moments, t, rate, pixels, dark=0.7754788379076724):
     return c0, c1, c2
 
 
-def threshold(moments, distance, t, rate, pixels):
+def threshold(moments, distance, t, rate, pixels, dark=0.7754788379076724):
     """Return the SNR-10 range given image moments at the reference distance."""
     s2 = moments[1]
-    c0, c1, c2 = variance_coefficients(moments, t, rate, pixels)
+    c0, c1, c2 = variance_coefficients(moments, t, rate, pixels, dark)
     A = s2 * s2 - 100 * c2
     assert np.all(A > 0)
     amplitude = (100 * c1 + np.sqrt((100 * c1) ** 2 + 400 * A * c0)) / (2 * A)
