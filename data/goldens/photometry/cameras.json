@@ -1,0 +1,24 @@
+{
+  "flux_e": 207.43367581851652,
+  "exposure_s": 4.0,
+  "detectors": {
+    "CMV4000": {
+      "pitch": 5.5,
+      "read": 13.0,
+      "n": 56,
+      "fullwell": 13500,
+      "plate_arcsec": 30.9375,
+      "dark": 2.9921217916718232,
+      "quant_var": 0.9259259259259259
+    },
+    "virtual_sCMOS": {
+      "pitch": 2.8,
+      "read": 3.3,
+      "n": 110,
+      "fullwell": 7400,
+      "plate_arcsec": 15.749999999999998,
+      "dark": 0.7754788379076724,
+      "quant_var": 0.9259259259259259
+    }
+  }
+}

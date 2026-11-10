@@ -20,6 +20,22 @@ python reproduce.py
 | `python factors.py` | Reduce the archived SNR grids at 329.5 km to all 20 displayed first-order shares in Table 5.1. The denominator is total variance of log SNR over the specified grid for that exposure and shape. |
 | `python reproduce.py` | Runs the preceding examples and a 512-draw Monte Carlo check. For the historical 13 e⁻ read-noise streak the measured-to-analytic weighted variance ratio is 1.06615. The range and coadd examples use the paper's separate 3.3 e⁻ virtual sCMOS. |
 
+## Replay the independent comparisons
+
+Run `python goldens.py` for all groups, or append one group name. The default replay reads local observations and Blender pixels and draws new noise from the published seeds. It needs the same three packages as the paper examples.
+
+| Group | Independent observable and scope |
+| --- | --- |
+| `tess` | For 59 historical 21 × 21 cutouts, start from retained measured sky floors and recalculate zodiacal rates at their epochs. Check geometry and interpolation against independent calculations. The two historical model discrepancies remain visible. [Measurements and product links](data/goldens/tess/README.md). |
+| `tess_paper` | Rebuild STScI and ZodiSURF zodiacal rates, diffuse Galactic light and the isotropic term from the selected timestamps, sightlines and TESS band coefficients. The measured sky and unresolved-star rate come from the archived photometry. Compare the resulting 250 windows and all 57 units to the manuscript. [Inputs and aggregation](data/goldens/tess_paper/README.md). |
+| `blender` | Integrate the original linear Cycles pixels for 18 pose/law combinations. Six plate comparisons exercise the public photometry function directly. A separate 36-node exposure checks integration in flux before conversion to magnitude. [Optional rerender and model scope](data/goldens/blender/README.md). |
+| `motion` | Compare the predicted 2 × 2 angular covariance of the exposure-averaged centroid with 16,000 nonlinear projections of uncertain initial orbital states, each shared across the entire 30–90 s exposure. The spread of photons along the nominal path is reported separately. [Original case and equations](gold_motion.py). |
+| `calibration` | Replay the paper's 20,000 independent finite-master draws for a 4 s spot on a detector with pixel-to-pixel sensitivity and dark-current variations. For this fixed aperture, empirical/predicted variance is 1.00164 for calibration alone and 0.99052 including science noise. [Sampling and dark reuse](gold_calibration.py). |
+| `coadd` | In a new 30,000-realization exercise, move a Gaussian source over three footprints, re-use the same master dark and flat for the three reads, and compare the resulting flux covariance to the variance formula in `coadd.py`. Both the calibration-only and total matrices are tested in squared electrons. [Noise and sampling assumptions](gold_coadd.py). |
+| `photometry` | Exercise the original operational SNR measurement on signed residuals from a candidate footprint, including masked pixels and a non-unit flat. Replay finite-reference and four native moving-trail noise controls. [Runnable estimator example and historical inputs](data/goldens/photometry/README.md). |
+
+The paper's SNR-10 distance uses the expected signal in Eq. (1). The reader can apply Eq. (2) to a measured candidate using `operational_photometry.matched_measure` with a calibrated residual, a base variance, a flat and an estimated template.
+
 ### Change a physical input
 
 ```sh
