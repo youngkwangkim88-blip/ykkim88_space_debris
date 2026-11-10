@@ -1,0 +1,7 @@
+# Figure 3.2(a), first E12 exposure under the August 4 sky
+
+`e12_weak_frame1.npz` contains a lossless extraction from the manuscript supplement's `sequences/E12_weak_date.npz`. The arrays `target_e` (float32), `raw_dn` (uint16), and `calibrated_e` (float32) are frame index 0 of that cube. `sky_rate` (electrons per pixel per second), `distance_km`, and `crop_x` (five integer horizontal offsets in native pixels) are copied from the same archive.
+
+Run `python figure32.py` from the repository root. The example starts from the noiseless source expectation of a rotating grey plate at 329.523 km, integrated for 4 s. The sky rate is 0.7113665 electrons per pixel per second. On the 65 × 1,259 pixel stripe swept across five exposures, seed 8202 generates fixed maps of sensitivity, dark rate and offset, then 64 dark reads and 32 flat reads. The first 65 × 305 crop starts at column 0. A separate seed (88331) generates its raw science frame. Only the target, sky rate and offsets enter those calculations. The stored raw and calibrated images serve as pixel-level checks.
+
+`python figure32.py --output figure32_a.npz` saves the two reconstructed science arrays and the stripe's `master_dark_e` and `flat_minus_dark_e`, both in electrons. For Figure 3.2 the flat response is `flat_minus_dark_e / 5000`. The program also reports how the answer changes if the measured stripe mean replaces that nominal input. The distance tables propagate uncertainty from full-detector normalization. The stripe covers only part of that detector.

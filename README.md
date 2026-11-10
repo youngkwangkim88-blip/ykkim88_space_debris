@@ -1,10 +1,10 @@
 # Optical detectability of rotating debris
 
-Reproduce selected results of the A1 v27 r6 manuscript on a CPU. Change a fragment's material, spin, angular speed, exposure, sensor response or background and calculate its expected SNR and SNR-10 range. Measure a sky background directly from a calibrated TESS time series. [한국어 실행 안내](README.ko.md) · [Input sources and reuse](SOURCES.md).
+Reproduce selected results of the A1 v27 r7 manuscript on a CPU. Change a fragment's material, spin, angular speed, exposure, sensor response or background and calculate its expected SNR and SNR-10 range. Measure a sky background directly from a calibrated TESS time series. [한국어 실행 안내](README.ko.md) · [Input sources and reuse](SOURCES.md).
 
 ## Run the paper examples
 
-The archived calculation version for reviewer reproduction is [v0.1.0-rc3](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3).
+The tagged code and data for r7 include two camera checks described below. [r7 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc4) · [Earlier r6 release](https://github.com/youngkwangkim88-blip/ykkim88_space_debris/tree/v0.1.0-rc3).
 
 With Python 3.10, create a virtual environment, activate it, and run the commands below. Installing the three pinned packages needs a package index or a wheel cache. The examples then run offline with the files in this directory.
 
@@ -23,6 +23,12 @@ python goldens.py
 | `python factors.py` | Reduce the archived SNR grids at 329.5 km to all 20 displayed first-order shares in Table 5.1. The denominator is total variance of log SNR over the specified grid for that exposure and shape. |
 | `python reproduce.py` | Runs the preceding examples and a 512-draw Monte Carlo check. For the historical 13 e⁻ read-noise streak the measured-to-analytic weighted variance ratio is 1.06615. The range and coadd examples use the paper's separate 3.3 e⁻ virtual sCMOS. |
 
+### Rebuild a detector frame and check the PSF
+
+Run `python figure32.py --output figure32_a.npz` to reconstruct Figure 3.2(a). The input is the archived noiseless target in the first 4 s under the weak E12 sky. The example redraws the fixed pixel maps, 64 darks, 32 flats and the science exposure. It checks all 65 × 305 raw DN and calibrated float32 pixels against the archived frame. The panel uses the nominal 5000 e⁻/pixel flat level. The range calculation in Eq. (1) propagates uncertainty in the measured full-field flat mean and covariance from reusing the same master dark. [Code](figure32.py) · [Frame inputs and provenance](data/figure32/README.md).
+
+For a separate optical check, install `python -m pip install poppy==1.1.2` in the same environment and run `python check_scmos_poppy.py`. On the paper's 2.8 µm virtual sCMOS, the largest absolute pixel difference between the two calculations, divided by the paper image peak in the same window, is 0.5492% (E5) and 0.6808% (E12) for a centred point. For a uniform 0.5 s trail at 130.4423 arcsec/s it is 0.1818% and 0.1978%. These checks compare propagation through the same ideal pupil. The 0.117% and 0.032% values in supplement S3 use the 5.5 µm CMV4000 and Vega weighted by Gaia G. [POPPY comparison](check_scmos_poppy.py).
+
 ## Replay the independent comparisons
 
 Run `python goldens.py` for all groups, or append one group name. The default replay reads local observations and Blender pixels and draws new noise from the published seeds. It needs the same three packages as the paper examples.
@@ -34,8 +40,8 @@ Run `python goldens.py` for all groups, or append one group name. The default re
 | `tess_paper` | Rebuild STScI and ZodiSURF zodiacal rates, diffuse Galactic light and the isotropic term from the selected timestamps, sightlines and TESS band coefficients. The measured sky and unresolved-star rate come from the archived photometry. Compare the resulting 250 windows and all 57 units to the manuscript. [Inputs and aggregation](data/goldens/tess_paper/README.md). |
 | `blender` | Integrate the original linear Cycles pixels for 18 pose/law combinations. Six plate comparisons exercise the public photometry function directly. A separate 36-node exposure checks integration in flux before conversion to magnitude. [Optional rerender and model scope](data/goldens/blender/README.md). |
 | `motion` | Compare the predicted 2 × 2 angular covariance of the exposure-averaged centroid with 16,000 nonlinear projections of uncertain initial orbital states, each shared across the entire 30–90 s exposure. The spread of photons along the nominal path is reported separately. [Original case and equations](gold_motion.py). |
-| `calibration` | Replay the paper's 20,000 independent finite-master draws for a 4 s spot on a detector with pixel-to-pixel sensitivity and dark-current variations. For this fixed aperture, empirical/predicted variance is 1.00164 for calibration alone and 0.99052 including science noise. [Sampling and dark reuse](gold_calibration.py). |
-| `coadd` | In a new 30,000-realization exercise, move a Gaussian source over three footprints, re-use the same master dark and flat for the three reads, and compare the resulting flux covariance to the variance formula in `coadd.py`. Both the calibration-only and total matrices are tested in squared electrons. [Noise and sampling assumptions](gold_coadd.py). |
+| `calibration` | Replay 20,000 independent finite-master draws for a 4 s spot on a detector with 13 e⁻ RMS read noise and pixel-to-pixel sensitivity and dark-current variations. For this fixed aperture, empirical/predicted variance is 1.00164 for calibration alone and 0.99052 including science noise. [Sampling and dark reuse](gold_calibration.py). |
+| `coadd` | In 30,000 realizations with 3.3 e⁻ RMS read noise and unit sensitivity, move a Gaussian source over three footprints, reuse the same master dark and flat and compare the flux covariance to the variance formula in `coadd.py`. Both the calibration-only and total matrices are tested in squared electrons. [Noise and sampling assumptions](gold_coadd.py). |
 | `photometry` | Exercise the original operational SNR measurement on signed residuals from a candidate footprint, including masked pixels and a non-unit flat. Replay finite-reference and four native moving-trail noise controls. [Runnable estimator example and historical inputs](data/goldens/photometry/README.md). |
 
 The paper's SNR-10 distance uses the expected signal in Eq. (1). The reader can apply Eq. (2) to a measured candidate using `operational_photometry.matched_measure` with a calibrated residual, a base variance, a flat and an estimated template.
