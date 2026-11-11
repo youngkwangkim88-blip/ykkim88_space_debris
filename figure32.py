@@ -1,4 +1,4 @@
-"""Rebuild the raw DN and calibrated electrons of Figure 3.2(a), first 4 s."""
+"""Rebuild the raw DN and calibrated electrons of Fig. 5(a) / Fig. S9(a), first 4 s."""
 
 import argparse
 from pathlib import Path
@@ -98,7 +98,7 @@ def reproduce(output=None, from_optics=False):
     stripe_calibrated = science_minus_dark_e / (flat_minus_dark_e[crop] / stripe_mean_e)
     max_change_e = np.max(np.abs(stripe_calibrated - calibrated))
     max_saved_difference_e = np.max(np.abs(stripe_calibrated.astype(np.float32) - calibrated_e))
-    print(f"Figure 3.2(a): all {raw_dn.size} raw DN and float32 calibrated pixels match.")
+    print(f"Fig. 5(a) / Fig. S9(a): all {raw_dn.size} raw DN and float32 calibrated pixels match.")
     print(f"Master stripe {height} x {stripe_shape[1]}: mean(flat - dark) = {stripe_mean_e:.7f} e-/pixel")
     print(f"Using the stripe mean instead of 5000 e-/pixel: maximum change in float64 = {max_change_e:.9f} e-")
     print(f"Maximum change after both images are saved as float32: {max_saved_difference_e:.9f} e-")

@@ -1,6 +1,8 @@
-# Figure 3.6. Paired SNR-10 range losses in synthetic catalogue-debris trails
+# Paired SNR-10 range losses for virtual-fragment trails
 
-`python figure36.py --output figure36.csv` selects the paper's population, solves Eq. (1) and writes the four threshold ranges and three percentage losses per retained trail. The repository's `reproduce.py` also prints all three distributions. Each trail casts one vote in each distribution.
+The current paper uses `python figure11.py --output figure11.csv`. The script applies the two annual central-pixel E12 rates (0.7113665 and 3.2303056 e⁻/pixel/s) to each selected trail. It solves Eq. (5) at both backgrounds and returns 68 paired distances with one vote per trail. P5/median/P95 range loss is 8.3176/9.6872/10.3045%. The gray-plate comparison uses the 100-state ranges in the [range table](../ranges_reference.csv). The main example `reproduce.py` runs this calculation.
+
+The historical `figure36.py` example for v27 r8 selected two backgrounds from 43 scene means. It remains available for comparison.
 
 ## Retained inputs
 
@@ -9,7 +11,7 @@ The two CSVs are column extracts of the A1 v27 manuscript supplement. They inclu
 * `scene_background.csv` gives campaign, synthetic scene, spectral response, exposure `T` (s), frame count and `sky_mean` (e⁻/native pixel/s). The producer divided each frame's diffuse background charge by the full detector area in pixels and by its exposure. The scene rate is the arithmetic mean of those frame rates. It excludes resolved stars and dark current.
 * `stamp_moments.csv` gives those campaign keys, the zero-based frame index, object group and apogee class, mean shutter-sampled object range (km), that frame's full-field sky and dark rates (e⁻/pixel/s), and full-detector pixel count. For target-only expected charge `s` at the original range, `src_e, m2, m3, m4` are the sums of the first through fourth powers of `s` over native pixels, and `peak` is its maximum. The script uses the per-frame dark rate recorded in the simulated scenes.
 
-## Selection and calculation
+## Historical 43-scene comparison
 
 1. Select all 43 square E12 scenes with a 4 s exposure. The minimum and maximum of their 30-frame scene means are 0.7352969 and 2.5978697 e⁻/pixel/s.
 2. For the stamp population, the supplement producer examined frames 0, 15 and 29 of each square scene. It retained available catalogue-debris stamps with positive total signal and a finite path entirely within the detector. Select the square E12, 4 s rows with catalogue apogee ≤ 2,000 km. This leaves 68 stamps from 50 objects in 20 scenes. No SNR cut is applied.

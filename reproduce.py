@@ -7,7 +7,7 @@ import fragment
 import tess
 import factors
 import coadd
-import figure36
+import figure11
 from noise import weak_streak
 
 
@@ -24,7 +24,7 @@ def main():
     sky.run()
     fragment.run()
     coadd.run()
-    figure36.run()
+    figure11.run()
     tess.run()
     factors.main()
     monte_carlo()

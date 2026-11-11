@@ -1,4 +1,4 @@
-"""Recompute Figure 3.6 from scene skies and native-pixel stamp moments."""
+"""Historical v27 r8 Fig. 3.6: 43 scene means. Use figure11.py for the v30 paper."""
 
 import argparse
 import csv
@@ -28,7 +28,7 @@ def run(output=None):
               if row["apogee_le_2000_km"] == "1"]
     n_objects = len({r["object_group"] for r in stamps})
     n_scenes = len({r["scene"] for r in stamps})
-    print(f"{len(scenes)} scene means: weak {weak:.7f}, strong {strong:.7f} e-/pixel/s")
+    print(f"Historical v27 r8 only, {len(scenes)} scene means: weak {weak:.7f}, strong {strong:.7f} e-/pixel/s")
     print(f"{len(stamps)} eligible stamps from {n_objects} objects in {n_scenes} scenes")
 
     def values(name):

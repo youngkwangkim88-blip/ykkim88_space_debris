@@ -1,4 +1,4 @@
-"""Reproduce Table 5.1 from the archived positive, single-exposure SNR cells."""
+"""Reproduce the first-order and speed/phase total-effect shares in Fig. 3."""
 
 import csv
 from pathlib import Path
@@ -23,7 +23,11 @@ def main():
     with (SUPPLEMENT / "factor_exposure_shares.csv").open(encoding="utf-8", newline="") as report:
         printed = {(row["shape"], row["exposure_s"]): row for row in csv.DictReader(report)}
 
-    print("Shape, exposure (s), first-order shares (%) in table order")
+    with (Path(__file__).resolve().parent / "paper/sources/factor_speed_phase.csv").open(
+            encoding="utf-8", newline="") as stream:
+        effects = {(row["shape"], float(row["exposure_s"]), row["factor"]): row
+                   for row in csv.DictReader(stream)}
+    print("Shape, exposure (s), first-order shares (%) in grid order")
     for index, shape in enumerate(SHAPES):
         for exposure, grid in (("0.5", short), ("4", long)):
             snr = grid[index].reshape(1200, 3, 2, 2, 2)
@@ -41,6 +45,13 @@ def main():
                 if value != reported:
                     raise ValueError(f"{shape}, {exposure} s, {factor}: computed {value}, table {reported}")
                 result.append(value)
+                if factor in ("speed", "phase"):
+                    total_share = 100 * y.var(axis=axis).mean() / total_variance
+                    ref = effects[shape, float(exposure), factor]
+                    np.testing.assert_allclose([share, total_share],
+                                               [float(ref["first_pct"]), float(ref["total_pct"])],
+                                               rtol=1e-5)
+
                 if (shape, exposure, factor) == ("plate", "0.5", "response"):
                     example = (level_means, total_variance, share)
             print(", ".join([shape, exposure, *result]))
